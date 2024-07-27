@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helper\ResponseHelper;
+use App\Models\Otp;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EmailSupport;
 use App\Http\Requests\SendOtpRequest;
@@ -13,10 +14,29 @@ class Emailcontroller extends Controller
     {
         try {
             $validateData = $request->validated();
+            
             $subject = "TOT OTP Verification";
             $mail_message = "Welcome to the Tale of Tails Universe!";
             $otp = rand(1000, 9999);
-            // $otp = substr(str_shuffle("0123456789"), 0, 4);
+
+            // Check if an OTP already exists for the email
+            $otpRecord = Otp::where('email', $validateData['email'])->first();
+
+            if ($otpRecord) {
+                // Update existing OTP and timestamp
+                $otpRecord->update([
+                    'otp' => $otp,
+                    'created_at' => now(),
+                ]);
+            } else {
+                // Create new OTP record
+                Otp::create([
+                    'email' => $validateData['email'],
+                    'otp' => $otp,
+                    'created_at' => now(),
+                ]);
+            }
+
             Mail::to($validateData['email'])->send(
                 new EmailSupport(
                     $subject,
@@ -34,7 +54,7 @@ class Emailcontroller extends Controller
         } catch (\Exception $e) {
             \Log::error('Otp exception error : ' . $e->getMessage() . 'Line number : ' . $e->getLine());
             return ResponseHelper::error(
-                message: 'User not sent!',
+                message: 'Otp not sent!' . $e,
                 statusCode: 400,
                 status: 'failure',
             );

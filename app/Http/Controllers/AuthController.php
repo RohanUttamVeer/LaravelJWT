@@ -63,7 +63,7 @@ class AuthController extends Controller
 
             if ($token = auth('api')->attempt($credentials)) {
                 return ResponseHelper::success(
-                    message: 'User registered successfully!',
+                    message: 'User logged in successfully!',
                     // data: $user,
                     // token: $token,
                     data: [
@@ -107,7 +107,7 @@ class AuthController extends Controller
         } catch (\Exception $e) {
             \Log::error('User details exception : ' . $e->getMessage() . 'Line number : ' . $e->getLine());
             return ResponseHelper::error(
-                message: 'User not logged in!',
+                message: 'User details error!',
                 statusCode: 400,
                 status: 'failure',
             );

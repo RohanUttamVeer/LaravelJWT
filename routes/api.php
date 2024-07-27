@@ -3,6 +3,7 @@
 // 'middleware' => 'api',
 
 use App\Http\Controllers\Emailcontroller;
+use App\Http\Controllers\VerifyOtpController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -21,4 +22,5 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('user_detail', [AuthController::class, 'user_detail']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('send_otp', [Emailcontroller::class, 'send_otp']);
+    Route::post('verify_otp', [VerifyOtpController::class, 'verify_otp']);
 });
