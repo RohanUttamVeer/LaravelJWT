@@ -42,8 +42,8 @@ class AuthController extends Controller
                     status: 'failure',
                 );
             }
-        } catch (Exception $e) {
-            Log::error('User register exception : ' . $e->getMessage() . 'Line number : ' . $e->getLine());
+        } catch (\Exception $e) {
+            \Log::error('User register exception : ' . $e->getMessage() . 'Line number : ' . $e->getLine());
             return ResponseHelper::error(
                 message: 'User not registered!',
                 statusCode: 400,
