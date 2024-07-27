@@ -6,6 +6,7 @@ use App\Helper\ResponseHelper;
 use App\Http\Requests\UserRegisterRequest;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -123,6 +124,7 @@ class AuthController extends Controller
     {
         try {
             auth('api')->logout();
+            JWTAuth::invalidate(JWTAuth::getToken());
             // $token = auth('api')->user()->getRememberToken();
             // $tokenId = $user->getAuthIdentifier();
             // $user->tokens()->where('id', $tokenId)->delete();
