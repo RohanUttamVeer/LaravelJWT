@@ -14,10 +14,9 @@ class Emailcontroller extends Controller
     {
         try {
             $validateData = $request->validated();
-            
+            $otp = rand(1000, 9999);
             $subject = "TOT OTP Verification";
             $mail_message = "Welcome to the Tale of Tails Universe!";
-            $otp = rand(1000, 9999);
 
             // Check if an OTP already exists for the email
             $otpRecord = Otp::where('email', $validateData['email'])->first();
@@ -26,7 +25,7 @@ class Emailcontroller extends Controller
                 // Update existing OTP and timestamp
                 $otpRecord->update([
                     'otp' => $otp,
-                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
             } else {
                 // Create new OTP record
@@ -34,6 +33,7 @@ class Emailcontroller extends Controller
                     'email' => $validateData['email'],
                     'otp' => $otp,
                     'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
             }
 
@@ -54,7 +54,7 @@ class Emailcontroller extends Controller
         } catch (\Exception $e) {
             \Log::error('Otp exception error : ' . $e->getMessage() . 'Line number : ' . $e->getLine());
             return ResponseHelper::error(
-                message: 'Otp not sent!' . $e,
+                message: 'Otp not sent!',
                 statusCode: 400,
                 status: 'failure',
             );

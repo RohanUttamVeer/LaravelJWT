@@ -19,5 +19,4 @@ class Otp extends Model
         'email',
         'otp',
     ];
-
 }

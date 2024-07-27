@@ -18,7 +18,7 @@ class VerifyOtpController extends Controller
                 ->where('otp', $validateData['otp'])
                 ->first();
 
-            if ($otpRecord && $otpRecord->created_at->diffInMinutes(now()) <= 10) {
+            if ($otpRecord && $otpRecord->updated_at->diffInMinutes(now()) <= 10) {
                 return ResponseHelper::success(
                     message: 'OTP verified successfully!',
                     data: null,
