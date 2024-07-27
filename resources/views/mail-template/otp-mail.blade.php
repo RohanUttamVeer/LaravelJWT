@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $subject }}</title>
+    <title></title>
     <style>
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -81,12 +81,12 @@
 <body>
     <div class="email-container">
         <div class="email-header">
-            <h2>{{ $mail_message }}</h2>
+            <h2>Welcome to Tale Of Tails Universe!</h2>
         </div>
         <div class="email-body">
             <p>Hey there,</p>
-            <p>Your journey with Tale of Tails begins now. Use the OTP below to unlock the magic:</p>
-            <p class="otp-code">{{ $otp }}</p>
+            <p>Your journey with Tale of Tails begins now. Use the OTP below to unlock the magic :</p>
+            <p class="otp-code"> {{ $auth_otp }} </p>
             <p>Enter this code in the app to verify your account and start exploring!</p>
             <p>If you did not request this code, please ignore this message.</p>
             <p><strong>Note:</strong> This OTP is valid for 10 minutes. Keep it safe and never share it with anyone!</p>

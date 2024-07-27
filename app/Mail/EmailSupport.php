@@ -14,19 +14,16 @@ class EmailSupport extends Mailable
 {
     use Queueable, SerializesModels;
 
-
-    public $subject;
     public $mail_message;
-    public $otp;
+    public $auth_otp;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($subject, $mail_message, $otp)
+    public function __construct($mail_message, $auth_otp)
     {
         $this->mail_message = $mail_message;
-        $this->$subject = $subject;
-        $this->$otp = $otp;
+        $this->auth_otp = $auth_otp;
     }
 
     /**
@@ -39,7 +36,7 @@ class EmailSupport extends Mailable
             replyTo: [
                 new Address('thetotuniverse@gmail.com', 'Tale of Tails'),
             ],
-            subject: $this->subject,
+            subject: $this->mail_message,
         );
     }
 
@@ -50,11 +47,6 @@ class EmailSupport extends Mailable
     {
         return new Content(
             view: 'mail-template.otp-mail',
-            with: [
-                'mail_message' => $this->mail_message,
-                'subject' => $this->subject,
-                'otp' => $this->otp,
-            ],
         );
     }
 
