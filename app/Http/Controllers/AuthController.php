@@ -16,7 +16,8 @@ class AuthController extends Controller
             $validateData = $request->validated();
 
             $user = User::create([
-                "name" => $validateData['name'],
+                // "name" => $validateData['name'],
+                "auth_type" => $validateData['auth_type'],
                 "email" => $validateData['email'],
                 'password' => bcrypt($validateData['password']),
             ]);
@@ -95,25 +96,25 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function user_detail()
-    {
-        try {
-            // return response()->json(auth('api')->user());
-            return ResponseHelper::success(
-                message: 'User details fetched!',
-                data: auth('api')->user(),
-                statusCode: 200,
-                status: 'success',
-            );
-        } catch (\Exception $e) {
-            \Log::error('User details exception : ' . $e->getMessage() . 'Line number : ' . $e->getLine());
-            return ResponseHelper::error(
-                message: 'User details error!',
-                statusCode: 400,
-                status: 'failure',
-            );
-        }
-    }
+    // public function get_user()
+    // {
+    //     try {
+    //         // return response()->json(auth('api')->user());
+    //         return ResponseHelper::success(
+    //             message: 'User details fetched!',
+    //             data: auth('api')->user(),
+    //             statusCode: 200,
+    //             status: 'success',
+    //         );
+    //     } catch (\Exception $e) {
+    //         \Log::error('User details exception : ' . $e->getMessage() . 'Line number : ' . $e->getLine());
+    //         return ResponseHelper::error(
+    //             message: 'User details error!',
+    //             statusCode: 400,
+    //             status: 'failure',
+    //         );
+    //     }
+    // }
 
     /**
      * Log the user out (Invalidate the token).
